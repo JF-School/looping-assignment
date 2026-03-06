@@ -1,4 +1,6 @@
-﻿namespace looping_assignment
+﻿using classes;
+
+namespace looping_assignment
 {
     internal class Program
     {
@@ -98,11 +100,11 @@
             bool done = false; // false for while loop
             double deposit, payBill, withdraw; // inputs
             int transMenu;
-            balance = 10; cashBalance = 35;
+            balance = 150; cashBalance = 50;
             Console.WriteLine("-------------PLANET BLORB ATM-------------");
             while (!done)
             {
-                if (balance <= 0.74)
+                if (balance < transactionFee)
                 {
                     Console.WriteLine("You have ran out of money.");
                     Console.WriteLine("Your account will be closed.");
@@ -261,8 +263,13 @@
                 total = payBill * tax;
                 if ((balance < payBill) || (balance < total))
                 {
+                    Console.WriteLine();
                     Console.WriteLine("You are unable to pay this bill.");
                     Console.WriteLine("Please come back when you have more money.");
+                    Console.WriteLine();
+                    Console.Write(enter);
+                    Console.ReadLine();
+                    Console.Clear();
                 }
                 else
                 {
@@ -312,7 +319,102 @@
 
         public static void Doubles()
         {
+            bool done = false, input = false;
+            int diceInput, rollUntil, rollAmt = 0;
+            Die dice1 = new Die(ConsoleColor.Red);
+            Die dice2 = new Die(ConsoleColor.Blue);
 
+            Console.WriteLine("------------DOUBLES-------------");
+            Console.WriteLine("Let's start with the settings first.");
+            Console.WriteLine("Should dice roll freely or require input?");
+            Console.WriteLine("1. Dice roll freely");
+            Console.WriteLine("2. Require Input");
+            Console.Write("Choose: ");
+            while ((!Int32.TryParse(Console.ReadLine(), out diceInput)) || ((diceInput < 1) || (diceInput > 2)))
+            {
+                Console.WriteLine("Invalid Input.");
+                Console.Write("Choose: ");
+            }
+            switch (diceInput)
+            {
+                case 1:
+                    input = false;
+                    break;
+                case 2:
+                    input = true;
+                    break;
+            }
+            Console.WriteLine();
+            Console.WriteLine("What should we roll until?");
+            Console.WriteLine("1. Doubles");
+            Console.WriteLine("2. Snake Eyes");
+            Console.WriteLine("3. Sequential Dice");
+            Console.WriteLine("4. Sum of 7");
+            Console.Write("Roll until? ");
+            while ((!Int32.TryParse(Console.ReadLine(), out rollUntil)) || ((rollUntil < 1) || (rollUntil > 4)))
+            {
+                Console.WriteLine("Invalid Input.");
+                Console.Write("Roll until? ");
+            }
+            Console.WriteLine();
+            Console.Write(enter);
+            Console.ReadLine();
+            Console.Clear();
+
+            while (!done)
+            {
+                rollAmt += 1;
+                Console.WriteLine($"ROLL {rollAmt}");
+                Console.WriteLine();
+                Console.WriteLine("Dice 1");
+                dice1.RollDie();
+                dice1.DrawRoll();
+                Console.WriteLine();
+                Console.WriteLine("Dice 2");
+                dice2.RollDie();
+                dice2.DrawRoll();
+                Console.WriteLine("--------------------------");
+
+                if ((dice1.Roll == dice2.Roll) && (rollUntil == 1))
+                {
+                    done = true;
+                    Console.WriteLine($"It took {rollAmt} tries to get doubles.");
+                }
+                else if (((dice1.Roll == 1) && (dice2.Roll == 1)) && (rollUntil == 2))
+                {
+                    done = true;
+                    Console.WriteLine($"It took {rollAmt} tries to get snake eyes.");
+                }
+                else if ((dice2.Roll == (dice1.Roll + 1)) && (rollUntil == 3))
+                {
+                    done = true;
+                    Console.WriteLine($"It took {rollAmt} tries to get sequential dice.");
+                }
+                else if ((((dice1.Roll + dice2.Roll) == 7)) && (rollUntil == 4))
+                {
+                    done = true;
+                    Console.WriteLine($"It took {rollAmt} tries to get a sum of 7.");
+                }
+
+                if (input)
+                {
+                    Console.WriteLine();
+                    Console.Write(enter);
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    //Thread.Sleep(1000);
+                    Console.WriteLine();
+                }
+            }
+
+            Thread.Sleep(1000);
+            Console.WriteLine();
+            Console.Write(enter);
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }
