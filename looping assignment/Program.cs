@@ -319,7 +319,7 @@ namespace looping_assignment
 
         public static void Doubles()
         {
-            bool done = false, input = false;
+            bool done, input = false;
             int diceInput, rollUntil, rollAmt = 0;
             Die dice1 = new Die(ConsoleColor.Red);
             Die dice2 = new Die(ConsoleColor.Blue);
@@ -360,7 +360,7 @@ namespace looping_assignment
             Console.Write(enter);
             Console.ReadLine();
             Console.Clear();
-
+            done = false;
             while (!done)
             {
                 rollAmt += 1;
@@ -390,7 +390,7 @@ namespace looping_assignment
                     done = true;
                     Console.WriteLine($"It took {rollAmt} tries to get sequential dice.");
                 }
-                else if ((((dice1.Roll + dice2.Roll) == 7)) && (rollUntil == 4))
+                else if (dice1.Roll + dice2.Roll == 7 && rollUntil == 4)
                 {
                     done = true;
                     Console.WriteLine($"It took {rollAmt} tries to get a sum of 7.");
