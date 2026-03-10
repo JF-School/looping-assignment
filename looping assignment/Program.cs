@@ -100,6 +100,7 @@ namespace looping_assignment
             bool done = false; // false for while loop
             double deposit, payBill, withdraw; // inputs
             int transMenu;
+            billsAmt = 0; depositAmt = 0; transCount = 0; withdrawAmt = 0; 
             balance = 150; cashBalance = 50;
             Console.WriteLine("-------------PLANET BLORB ATM-------------");
             while (!done)
@@ -114,45 +115,49 @@ namespace looping_assignment
                     Console.Write(enter);
                     Console.ReadLine();
                     Console.Clear();
+                    done = true;
                 }
-                sleep = 25;
-                TypeText("Welcome to Bank of Blorb.");
-                TypeText("1. Deposit");
-                TypeText("2. Withdrawal");
-                TypeText("3. Bill Payment");
-                TypeText("4. Account Balance Update");
-                TypeText("5. Quit");
-                Console.WriteLine();
-                Console.Write("Choose your transaction: ");
-                while ((!Int32.TryParse(Console.ReadLine(), out transMenu)) || ((transMenu <= 0) || (transMenu > 5)))
+                else
                 {
-                    AccountBalance();
-                }
-                Console.WriteLine();
-                Console.Write(enter);
-                Console.ReadLine();
-                Console.Clear();
+                    sleep = 25;
+                    TypeText("Welcome to Bank of Blorb.");
+                    TypeText("1. Deposit");
+                    TypeText("2. Withdrawal");
+                    TypeText("3. Bill Payment");
+                    TypeText("4. Account Balance Update");
+                    TypeText("5. Quit");
+                    Console.WriteLine();
+                    Console.Write("Choose your transaction: ");
+                    while ((!Int32.TryParse(Console.ReadLine(), out transMenu)) || ((transMenu <= 0) || (transMenu > 5)))
+                    {
+                        AccountBalance();
+                    }
+                    Console.WriteLine();
+                    Console.Write(enter);
+                    Console.ReadLine();
+                    Console.Clear();
 
-                switch (transMenu)
-                {
-                    case 1: // deposit
-                        Deposit();
-                        break;
-                    case 2: // withdrawal
-                        Withdraw();
-                        break;
-                    case 3: // bill payments
-                        Bills();
-                        break;
-                    case 4: // account balance
-                        AccountBalance();
-                        break;
-                    case 5: // quit
-                        done = true;
-                        break;
-                    default: // else
-                        AccountBalance();
-                        break;
+                    switch (transMenu)
+                    {
+                        case 1: // deposit
+                            Deposit();
+                            break;
+                        case 2: // withdrawal
+                            Withdraw();
+                            break;
+                        case 3: // bill payments
+                            Bills();
+                            break;
+                        case 4: // account balance
+                            AccountBalance();
+                            break;
+                        case 5: // quit
+                            done = true;
+                            break;
+                        default: // else
+                            AccountBalance();
+                            break;
+                    }
                 }
             }
         }
@@ -320,7 +325,7 @@ namespace looping_assignment
         public static void Doubles()
         {
             bool done, input = false;
-            int diceInput, rollUntil, rollAmt = 0;
+            int diceInput = 0, rollUntil = 0, rollAmt = 0;
             Die dice1 = new Die(ConsoleColor.Red);
             Die dice2 = new Die(ConsoleColor.Blue);
 
@@ -340,7 +345,7 @@ namespace looping_assignment
                 case 1:
                     input = false;
                     break;
-                case 2:
+                default:
                     input = true;
                     break;
             }
@@ -405,7 +410,6 @@ namespace looping_assignment
                 }
                 else
                 {
-                    //Thread.Sleep(1000);
                     Console.WriteLine();
                 }
             }
